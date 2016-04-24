@@ -31,7 +31,9 @@ Meteor.methods({
     check( projectId, String );
 
     try {
-      Projects.remove( projectId );
+      Projects.update( { "_id": projectId }, {
+        $set: { active : false }
+      } );
     } catch( exception ) {
       return exception;
     }

@@ -8,7 +8,7 @@ Template.newProject.events({
       "name": $('#name').val(),
       "description": $('#description').val(),
       "image": "http://lorempixel.com/400/200/sports/", //TODO: Salvar imagem do upload feito pelo usuário
-      "status": "Ativo", //TODO: fazer ENUM para Status
+      "active": true,
       "walletAddress": "walletAddress",//TODO: pegar balance pela API
       "balance": 0 //TODO: pegar balance pela API
     };
@@ -18,6 +18,7 @@ Template.newProject.events({
         Bert.alert( error.reason, "danger" );
       } else {
         Bert.alert( "Projeto criado com sucesso!", "success" );
+        BlazeLayout.render( 'default', { yield: 'dashboard' } );
       }
     });
   }

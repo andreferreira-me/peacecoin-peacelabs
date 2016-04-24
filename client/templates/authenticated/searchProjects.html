@@ -14,7 +14,7 @@
       <h3>{{name}}</h3>
       <p>{{description}}</p>
       <p>{{activities}}</p>
-      <button id="button" class="btn btn-info">Ver detalhes</button>
+      <a id="button" class="btn btn-info" href="{{pathFor 'project' _id=this._id}}">Ver detalhes</a>
     </div>
   </div>
 </template>

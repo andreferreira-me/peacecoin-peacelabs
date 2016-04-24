@@ -34,9 +34,9 @@ ProjectSchema = new SimpleSchema({
     type: String,
     label: "Project Image"
   },
-  "status": {
-    type: String,
-    label: "Project Status"
+  "active": {
+    type: Boolean,
+    label: "Project isActive"
   },
   "walletAddress": {
     type: String,

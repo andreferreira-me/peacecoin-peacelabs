@@ -23,6 +23,16 @@ authenticatedRoutes.route( '/criar-projeto', {
   }
 });
 
+authenticatedRoutes.route( '/projeto/:_id', {
+  name: 'project',
+  action: function(params) {
+    BlazeLayout.render( 'default', {
+      yield: 'project',
+      _id: params._id
+    });
+  }
+});
+
 authenticatedRoutes.route( '/contribuir', {
   name: 'searchProjects',
   action() {

@@ -1,5 +1,5 @@
 Template.searchProjects.helpers({
   projects: function () {
-    return Projects.find();
+    return Projects.find({ "active" : true });
   }
 });

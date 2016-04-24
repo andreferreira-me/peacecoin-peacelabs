@@ -4,43 +4,20 @@
     <p>Saldo em Carteira: 10 ETH</p>
     <!-- TODO: Pegar saldo do usuário ou do Cliente, caso seja admin -->
   </div>
+
+  <label id="result"></label>
+  <button id="testeApiGet" class="btn btn-danger">Teste API GET</button>
+  <button id="testeApiPost" class="btn btn-danger">Teste API POST</button>
   <hr>
 
   <h3>Meus Projetos</h3>
 
   {{#each myProjects}}
-    {{> project}}
+    {{> dashboardProjectItem}}
   {{/each}}
-
-  <table class="table table-hover table-striped table-striped table-bordered table-condensed table-responsive text-center">
-      <thead>
-      <tr>
-        <th>_id</th>
-        <th>ownerId</th>
-        <th>name</th>
-        <th>description</th>
-        <th>status</th>
-        <th>walletAddress</th>
-        <th>balance</th>
-      </tr>
-      </thead>
-      <tbody>
-      {{#each project in myProjects}}
-      <tr>
-        <td>{{project._id}}</td>
-        <td>{{project.ownerId}}</td>
-        <td>{{project.name}}</td>
-        <td>{{project.description}}</td>
-        <td>{{project.status}}</td>
-        <td>{{project.walletAddress}}</td>
-        <td>{{project.balance}}</td>
-      </tr>
-      {{/each}}
-      </tbody>
-    </table>
 </template>
 
-<template name="project">
+<template name="dashboardProjectItem">
   <div class="col-md-4">
     <div class="col-md-10" style="border: 1px solid #F8F8F8">
       <img src="{{image}}" class="img-responsive" />
@@ -48,7 +25,7 @@
       <p>{{description}}</p>
       <p class="text-info">Saldo: {{balance}} ETH</p>
       <p>{{activities}}</p>
-      <button id="button" class="btn btn-info">Ver detalhes</button>
+      <a id="button" class="btn btn-info" href="{{pathFor 'project' _id=this._id}}">Ver detalhes</a>
     </div>
   </div>
 </template>
