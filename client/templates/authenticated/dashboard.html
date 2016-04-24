@@ -1,3 +1,54 @@
 <template name="dashboard">
-  <h3>Dashboard</h3>
+  <h3>Painel</h3>
+  <div class="alert alert-info">
+    <p>Saldo em Carteira: 10 ETH</p>
+    <!-- TODO: Pegar saldo do usuário ou do Cliente, caso seja admin -->
+  </div>
+  <hr>
+
+  <h3>Meus Projetos</h3>
+
+  {{#each myProjects}}
+    {{> project}}
+  {{/each}}
+
+  <table class="table table-hover table-striped table-striped table-bordered table-condensed table-responsive text-center">
+      <thead>
+      <tr>
+        <th>_id</th>
+        <th>ownerId</th>
+        <th>name</th>
+        <th>description</th>
+        <th>status</th>
+        <th>walletAddress</th>
+        <th>balance</th>
+      </tr>
+      </thead>
+      <tbody>
+      {{#each project in myProjects}}
+      <tr>
+        <td>{{project._id}}</td>
+        <td>{{project.ownerId}}</td>
+        <td>{{project.name}}</td>
+        <td>{{project.description}}</td>
+        <td>{{project.status}}</td>
+        <td>{{project.walletAddress}}</td>
+        <td>{{project.balance}}</td>
+      </tr>
+      {{/each}}
+      </tbody>
+    </table>
+</template>
+
+<template name="project">
+  <div class="col-md-4">
+    <div class="col-md-10" style="border: 1px solid #F8F8F8">
+      <img src="{{image}}" class="img-responsive" />
+      <h3>{{name}}</h3>
+      <p>{{description}}</p>
+      <p class="text-info">Saldo: {{balance}} ETH</p>
+      <p>{{activities}}</p>
+      <button id="button" class="btn btn-info">Ver detalhes</button>
+    </div>
+  </div>
 </template>
