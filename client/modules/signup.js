@@ -42,7 +42,8 @@ let _handleSignup = ( template ) => {
     if ( error ) {
       Bert.alert( error.reason, 'danger' );
     } else {
-      Bert.alert( 'Welcome!', 'success' );
+      Bert.alert( 'Parabéns! Sua conta foi criada com sucesso!', 'success' );
+      BlazeLayout.render( 'default', { yield: 'dashboard' } );
     }
   });
 };

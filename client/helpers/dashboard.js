@@ -5,17 +5,12 @@ Template.dashboard.helpers({
 });
 
 Template.dashboard.events({
-  'click #testeApiGet'(event) {
+  'click #testeAPI'(event) {
     // Prevent default browser form submit
     event.preventDefault();
 
-    $.ajax({
-      method: "GET",
-      url: "http://172.16.1.3:3000/smartcoin/v1/validaToken?token=b07f2b3dbab6d6799732d39586c5496e",
-      contentType: "application/json",
-      crossDomain: true,
-    }).done(function(data) {
-      console.log(data);
+    Meteor.call("getBalance", "0x910ca8702e41f46c4bf5b801e1b70f2ffca9d0fe", function(error, results) {
+        console.log(results.content); //results.data should be a JSON object
     });
   },
   'click #testeApiPost'(event) {

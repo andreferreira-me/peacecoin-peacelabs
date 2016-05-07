@@ -9,9 +9,19 @@ Template.newProject.events({
       "description": $('#description').val(),
       "image": "http://lorempixel.com/400/200/sports/", //TODO: Salvar imagem do upload feito pelo usuário
       "active": true,
-      "walletAddress": "walletAddress",//TODO: pegar balance pela API
-      "balance": 0 //TODO: pegar balance pela API
+      "walletAddress": "walletAddress",//TODO: gerar endereço da wallet pela API
     };
+
+    Meteor.call('geoJsonForIp', '8.8.8.8', function( error, response ){
+      if ( error ) {
+        Bert.alert( error.reason, "danger" );
+      } else {
+        Bert.alert( "API testada com sucesso!", "success" );
+        BlazeLayout.render( 'default', { yield: 'dashboard' } );
+      }
+
+      console.log(res);
+    });
 
     Meteor.call( "insertProject", newProject, function( error, response ) {
       if ( error ) {

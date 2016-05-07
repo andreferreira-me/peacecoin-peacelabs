@@ -39,6 +39,7 @@ let _handleLogin = ( template ) => {
       Bert.alert( error.reason, 'warning' );
     } else {
       Bert.alert( 'Login realizado com sucesso!', 'success' );
+      BlazeLayout.render( 'default', { yield: 'dashboard' } );
     }
   });
 };

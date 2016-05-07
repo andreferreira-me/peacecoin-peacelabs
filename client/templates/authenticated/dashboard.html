@@ -1,20 +1,64 @@
 <template name="dashboard">
-  <h3>Painel</h3>
-  <div class="alert alert-info">
-    <p>Saldo em Carteira: 10 ETH</p>
-    <!-- TODO: Pegar saldo do usuário ou do Cliente, caso seja admin -->
+  <h1>Painel</h1>
+  <div class="row">
+    <div class="col-xs-6">
+      <h2>Minhas Atividades</h2>
+      <table class="table table-hover table-striped table-bordered table-condensed table-responsive">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Atividade #1</td>
+            <td>5 ETH</td>
+            <td>Pendente Aprovação</td>
+          </tr>
+          <tr>
+            <td>Atividade #1</td>
+            <td>5 ETH</td>
+            <td>Pendente Aprovação</td>
+          </tr>
+          <tr>
+            <td>Atividade #1</td>
+            <td>5 ETH</td>
+            <td>Pendente Aprovação</td>
+          </tr>
+          <tr>
+            <td>Atividade #1</td>
+            <td>5 ETH</td>
+            <td>Pendente Aprovação</td>
+          </tr>
+          <tr>
+            <td>Atividade #1</td>
+            <td>5 ETH</td>
+            <td>Pendente Aprovação</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-6">
+      <h2>Minha Conta</h2>
+      <div class="alert alert-info">
+        <p>Saldo em Carteira: 455 ETH</p>
+        <p>Saldo em Projetos: 278 ETH</p>
+        <p>Endereço da Carteira: 0xc69E682824DA733ECbcd899A5028a452f37B4c26</p>
+        <button id="testeAPI" class="btn btn-danger" value="Testar API">TestarAPI</button>
+        <!-- TODO: Pegar saldo do usuário ou do Cliente, caso seja admin -->
+      </div>
+    </div>
   </div>
 
-  <label id="result"></label>
-  <button id="testeApiGet" class="btn btn-danger">Teste API GET</button>
-  <button id="testeApiPost" class="btn btn-danger">Teste API POST</button>
-  <hr>
-
   <h3>Meus Projetos</h3>
+  <hr />
 
   {{#each myProjects}}
     {{> dashboardProjectItem}}
   {{/each}}
+
 </template>
 
 <template name="dashboardProjectItem">
@@ -22,9 +66,7 @@
     <div class="col-md-10" style="border: 1px solid #F8F8F8">
       <img src="{{image}}" class="img-responsive" />
       <h3>{{name}}</h3>
-      <p>{{description}}</p>
-      <p class="text-info">Saldo: {{balance}} ETH</p>
-      <p>{{activities}}</p>
+      <p class="text-danger">saldo da carteira</p>
       <a id="button" class="btn btn-info" href="{{pathFor 'project' _id=this._id}}">Ver detalhes</a>
     </div>
   </div>

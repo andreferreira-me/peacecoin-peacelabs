@@ -1,18 +1,18 @@
-Projects = new Mongo.Collection( 'projects' );
+Activities = new Mongo.Collection( 'activities' );
 
-Projects.allow({
+Activities.allow({
   insert: () => true,
   update: () => true,
   remove: () => true
 });
 
-Projects.deny({
+Activities.deny({
   insert: () => false,
   update: () => false,
   remove: () => false
 });
 
-ProjectSchema = new SimpleSchema({
+ActivitySchema = new SimpleSchema({
   "name": {
     type: String,
     label: "Project Name"
@@ -35,4 +35,4 @@ ProjectSchema = new SimpleSchema({
   }
 });
 
-Projects.attachSchema( ProjectSchema );
+Activities.attachSchema( ActivitySchema );
