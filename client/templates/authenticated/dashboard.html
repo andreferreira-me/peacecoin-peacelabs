@@ -43,11 +43,18 @@
     <div class="col-xs-6">
       <h2>Minha Conta</h2>
       <div class="alert alert-info">
-        <p>Saldo em Carteira: 455 ETH</p>
-        <p>Saldo em Projetos: 278 ETH</p>
-        <p>Endereço da Carteira: 0xc69E682824DA733ECbcd899A5028a452f37B4c26</p>
-        <button id="testeAPI" class="btn btn-danger" value="Testar API">TestarAPI</button>
-        <!-- TODO: Pegar saldo do usuário ou do Cliente, caso seja admin -->
+        <p>
+          <span>Saldo em Carteira: </span>
+          <span id="balance">{{myBalance balance}} - {{myBalance btc}} - {{myBalance usd}}</span>
+        </p>
+        <p>
+          <span>Saldo em Projetos: </span>
+          <span id="">{{myBalance balance}}</span>
+        </p>
+        <p>
+          <span>Endereço da Carteira: </span>
+          <span id="walletAddress">{{myBalance walletAddress}}</span>
+        </p>
       </div>
     </div>
   </div>
