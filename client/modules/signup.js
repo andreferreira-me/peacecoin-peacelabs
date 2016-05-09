@@ -35,13 +35,22 @@ let validation = ( template ) => {
 let _handleSignup = ( template ) => {
   let user = {
     email: template.find( '[name="emailAddress"]' ).value,
-    password: template.find( '[name="password"]' ).value
+    password: template.find( '[name="password"]' ).value,
+    profile: {
+      name: template.find( '[name="name"]' ).value,
+      cpf: template.find( '[name="cpf"]' ).value,
+    }
   };
+
+  var cpf = template.find( '[name="cpf"]' ).value;
+  var name = template.find( '[name="name"]' ).value;
 
   Accounts.createUser( user, ( error ) => {
     if ( error ) {
       Bert.alert( error.reason, 'danger' );
     } else {
+      Meteor.call("postCollaborator", cpf, name);
+
       Bert.alert( 'Parabéns! Sua conta foi criada com sucesso!', 'success' );
       BlazeLayout.render( 'default', { yield: 'dashboard' } );
     }
