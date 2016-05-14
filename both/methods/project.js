@@ -3,10 +3,12 @@ Meteor.methods({
     check( project, Projects.simpleSchema() );
 
     var newProject = {
-      "ownerId" : project.ownerId,
+      "ownerId": project.ownerId,
       "name": project.name,
       "description": project.description,
-      "image": project.image
+      "image": project.image,
+      "isActive": project.isActive,
+      "walletAddress": project.walletAddress
     };
 
     try {
@@ -32,7 +34,7 @@ Meteor.methods({
 
     try {
       Projects.update( { "_id": projectId }, {
-        $set: { active : false }
+        $set: { isActive : false }
       } );
     } catch( exception ) {
       return exception;

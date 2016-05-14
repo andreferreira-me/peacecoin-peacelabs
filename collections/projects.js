@@ -13,6 +13,10 @@ Projects.deny({
 });
 
 ProjectSchema = new SimpleSchema({
+  "ownerId":{
+    type: String,
+    label: "Owner of Project is a User.id"
+  },
   "name": {
     type: String,
     label: "Project Name"
@@ -31,6 +35,7 @@ ProjectSchema = new SimpleSchema({
   },
   "walletAddress": {
     type: String,
+    optional: true,
     label: "Project Wallet Address"
   }
 });
