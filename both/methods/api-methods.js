@@ -48,7 +48,7 @@ Meteor.methods({
           });
 
           Meteor.users.update({
-            _id: user._id
+            '_id': user._id
           }, {
             $set: {
               "profile.walletAddress": response.data.data.walletAddress
@@ -58,8 +58,9 @@ Meteor.methods({
       }
     });
   },
-  postProject: function(name, description) {
+  postProject: function(projectId, name, description) {
 
+    check(projectId, String);
     check(name, String);
     check(description, String);
     this.unblock();
@@ -67,6 +68,7 @@ Meteor.methods({
     Meteor.http.post("http://172.16.1.3:3000/smartcoin/v1/project", {
       data: {
         token: "29430fce7797f2c90dc9dcdf4dbd67b0",
+        projectId: projectId,
         name: name,
         description: description
       }
@@ -75,17 +77,15 @@ Meteor.methods({
         console.log(error);
       } else {
         if (response.data.statusCode == 200) {
-          var project = Projects.findOne({
-            name : name
-          });
 
           Projects.update({
-            _id: project._id
+            '_id': projectId
           }, {
             $set: {
               "walletAddress": response.data.data.walletAddress
             }
           });
+
         }
       }
     });

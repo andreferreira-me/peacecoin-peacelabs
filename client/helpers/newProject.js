@@ -1,5 +1,5 @@
 Template.newProject.events({
-  'submit #newProject'(event) {
+  'submit #newProject'(event, template) {
     // Prevent default browser form submit
     event.preventDefault();
 
@@ -12,12 +12,16 @@ Template.newProject.events({
       "walletAddress": ""
     };
 
+
+
     Meteor.call( "insertProject", newProject, function( error, response ) {
       if ( error ) {
         Bert.alert( error.reason, "danger" );
       } else {
 
-        var project = Meteor.call("postProject", newProject.name, newProject.description);
+        Modules.client.uploadToAmazonS3( { event: event, template: template, projectId : response } );
+
+        Meteor.call("postProject", response, $('#name').val(), $('#description').val());
 
         Bert.alert( "Projeto criado com sucesso!", "success" );
         BlazeLayout.render( 'default', { yield: 'dashboard' } );
