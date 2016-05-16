@@ -22,3 +22,10 @@ Template.project.events({
     });
   }
 });
+
+Template.registerHelper('projectBalance', ( walletAddress ) => {
+  if ( walletAddress ) {
+    console.log(walletAddress);
+    var promise = Meteor.callPromise("getBalance", walletAddress, false);
+  }
+});

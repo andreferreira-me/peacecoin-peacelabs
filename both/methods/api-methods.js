@@ -1,13 +1,14 @@
 Meteor.methods({
-  getBalance: function(walletAddress) {
+  getBalance: function(walletAddress, user) {
 
     check(walletAddress, String);
+    check(user, Boolean);
 
     this.unblock();
 
-    Meteor.http.get("http://172.16.1.3:3000/smartcoin/v1/balance", {
+    Meteor.http.get("http://localhost:3002/smartcoin/v1/balance", {
       params: {
-        token: "29430fce7797f2c90dc9dcdf4dbd67b0",
+        token: "ece5b0c83732411177ed83e895e527fa",
         walletAddress: walletAddress
       }
     }, function(error, response) {
@@ -18,9 +19,37 @@ Meteor.methods({
           if (Meteor.isServer) {
             console.log(response.data.data);
           } else if (Meteor.isClient) {
-            $('#balance').html(response.data.data.balance + " - " + response.data.data.btc + " - " + response.data.data.usd);
-            //TODO: Exibir saldo dos projetos do usuário
-            $('#walletAddress').html(response.data.data.walletAddress);
+            $('#myBalance').html(response.data.data.balance + " - " + response.data.data.btc + " - " + response.data.data.usd);
+            $('#projectBalance').html(response.data.data.balance + " - " + response.data.data.btc + " - " + response.data.data.usd);
+
+            if (user)
+              $('#myWalletAddress').html(response.data.data.walletAddress);
+
+          }
+        }
+      }
+    });
+  },
+  getProject: function(userId) {
+
+    check(userId, String);
+
+    this.unblock();
+
+    Meteor.http.get("http://localhost:3002/smartcoin/v1/project", {
+      params: {
+        token: "ece5b0c83732411177ed83e895e527fa",
+        userId: userId
+      }
+    }, function(error, response) {
+      if (error) {
+        console.log(error);
+      } else {
+        if (response.data.statusCode == 200) {
+          if (Meteor.isServer) {
+            console.log(response.data.data);
+          } else if (Meteor.isClient) {
+            $('#projectBalanceSum').html(response.data.data.balance + " - " + response.data.data.btc + " - " + response.data.data.usd);
           }
         }
       }
@@ -32,9 +61,9 @@ Meteor.methods({
     check(name, String);
     this.unblock();
 
-    Meteor.http.post("http://172.16.1.3:3000/smartcoin/v1/collaborator", {
+    Meteor.http.post("http://localhost:3002/smartcoin/v1/collaborator", {
       data: {
-        token: "29430fce7797f2c90dc9dcdf4dbd67b0",
+        token: "ece5b0c83732411177ed83e895e527fa",
         cpf: cpf,
         name: name
       }
@@ -58,19 +87,21 @@ Meteor.methods({
       }
     });
   },
-  postProject: function(projectId, name, description) {
+  postProject: function(projectId, name, description, userId) {
 
     check(projectId, String);
     check(name, String);
     check(description, String);
+    check(userId, String);
     this.unblock();
 
-    Meteor.http.post("http://172.16.1.3:3000/smartcoin/v1/project", {
+    Meteor.http.post("http://localhost:3002/smartcoin/v1/project", {
       data: {
-        token: "29430fce7797f2c90dc9dcdf4dbd67b0",
+        token: "ece5b0c83732411177ed83e895e527fa",
         projectId: projectId,
         name: name,
-        description: description
+        description: description,
+        userId: userId
       }
     }, function(error, response) {
       if (error) {

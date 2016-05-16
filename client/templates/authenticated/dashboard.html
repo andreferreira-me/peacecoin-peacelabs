@@ -45,15 +45,15 @@
       <div class="alert alert-info">
         <p>
           <span>Saldo em Carteira: </span>
-          <span id="balance">{{myBalance balance}} - {{myBalance btc}} - {{myBalance usd}}</span>
+          <span id="myBalance">{{myBalance balance}} - {{myBalance btc}} - {{myBalance usd}}</span>
         </p>
         <p>
           <span>Saldo em Projetos: </span>
-          <span id="">{{myBalance balance}}</span>
+          <span id="projectBalanceSum">{{projectBalanceSum balance}} - {{projectBalanceSum btc}} - {{projectBalanceSum usd}}</span>
         </p>
         <p>
           <span>Endereço da Carteira: </span>
-          <span id="walletAddress">{{myBalance walletAddress}}</span>
+          <span id="myWalletAddress">{{myBalance walletAddress}}</span>
         </p>
       </div>
     </div>
@@ -73,8 +73,15 @@
     <div class="col-md-10" style="border: 1px solid #F8F8F8">
       <img src="{{image}}" class="img-responsive" />
       <h3>{{name}}</h3>
-      <p class="text-danger">saldo da carteira</p>
+      <p>
+        <span>Saldo: </span>
+        <span class="text-danger" id="projectBalance">{{projectBalance walletAddress}}</span>
+      </p>
       <a id="button" class="btn btn-info" href="{{pathFor 'project' _id=this._id}}">Ver detalhes</a>
     </div>
   </div>
+</template>
+
+<template name="projectBalance">
+
 </template>
