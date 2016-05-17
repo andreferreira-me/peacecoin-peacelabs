@@ -24,7 +24,7 @@ Template.newProject.events({
         Meteor.call("postProject", response, $('#name').val(), $('#description').val(), Meteor.userId());
 
         Bert.alert( "Projeto criado com sucesso!", "success" );
-        BlazeLayout.render( 'default', { yield: 'dashboard' } );
+        FlowRouter.go('/painel');
       }
     });
   }

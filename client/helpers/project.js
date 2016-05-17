@@ -17,7 +17,27 @@ Template.project.events({
         Bert.alert( error.reason, "danger" );
       } else {
         Bert.alert( "Projeto removido com sucesso!", "success" );
-        BlazeLayout.render( 'default', { yield: 'dashboard' } );
+        FlowRouter.go('/painel');
+      }
+    });
+  },
+  'click #sendEtherProject'(event) {
+    // Prevent default browser form submit
+    event.preventDefault();
+
+    var projectId = FlowRouter.getParam("_id");
+    var project = Projects.findOne({ '_id' : projectId });
+
+    var user = Meteor.users.findOne({ '_id' : Meteor.userId() });
+
+    var value = parseFloat($('#valueTransaction').val());
+
+    Meteor.call( "postTransaction", user.profile.walletAddress, project.walletAddress, value, function( error, response ) {
+      if ( error ) {
+        Bert.alert( error.reason, "danger" );
+      } else {
+        Bert.alert( "Contribuição realizada com sucesso!", "success" );
+        FlowRouter.go('/painel');
       }
     });
   }

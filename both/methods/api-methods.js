@@ -16,11 +16,9 @@ Meteor.methods({
         console.log(error);
       } else {
         if (response.data.statusCode == 200) {
-          if (Meteor.isServer) {
-            console.log(response.data.data);
-          } else if (Meteor.isClient) {
-            $('#myBalance').html(response.data.data.balance + " - " + response.data.data.btc + " - " + response.data.data.usd);
-            $('#projectBalance').html(response.data.data.balance + " - " + response.data.data.btc + " - " + response.data.data.usd);
+          if (Meteor.isClient) {
+            $('#myBalance').html(response.data.data.balance + " = " + response.data.data.btc + " = " + response.data.data.usd);
+            $('#projectBalance').html(response.data.data.balance + " = " + response.data.data.btc + " = " + response.data.data.usd);
 
             if (user)
               $('#myWalletAddress').html(response.data.data.walletAddress);
@@ -46,11 +44,11 @@ Meteor.methods({
         console.log(error);
       } else {
         if (response.data.statusCode == 200) {
-          if (Meteor.isServer) {
-            console.log(response.data.data);
-          } else if (Meteor.isClient) {
-            $('#projectBalanceSum').html(response.data.data.balance + " - " + response.data.data.btc + " - " + response.data.data.usd);
+
+          if (Meteor.isClient) {
+            $('#projectBalanceSum').html(response.data.data.balance + " = " + response.data.data.btc + " = " + response.data.data.usd);
           }
+
         }
       }
     });
@@ -117,6 +115,32 @@ Meteor.methods({
             }
           });
 
+        }
+      }
+    });
+  },
+  postTransaction: function(walletAddressFrom, walletAddressTo, value) {
+
+    check(walletAddressFrom, String);
+    check(walletAddressTo, String);
+    check(value, Number);
+
+    this.unblock();
+
+    Meteor.http.post("http://localhost:3002/smartcoin/v1/transaction", {
+      data: {
+        token: "ece5b0c83732411177ed83e895e527fa",
+        walletAddressFrom: walletAddressFrom,
+        walletAddressTo: walletAddressTo,
+        value: value
+      }
+    }, function(error, response) {
+      if (error) {
+        console.log(error);
+      } else {
+        if (response.data.statusCode == 200) {
+
+          alert("deu certoo");
         }
       }
     });
