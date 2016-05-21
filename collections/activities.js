@@ -15,23 +15,15 @@ Activities.deny({
 ActivitySchema = new SimpleSchema({
   "name": {
     type: String,
-    label: "Project Name"
+    label: "Activity Name"
   },
-  "description": {
+  "value": {
     type: String,
-    label: "Project Description"
+    label: "Activity Value"
   },
-  "image": {
+  "status": {
     type: String,
-    label: "Project Image"
-  },
-  "isActive": {
-    type: Boolean,
-    label: "Project isActive?"
-  },
-  "walletAddress": {
-    type: String,
-    label: "Project Wallet Address"
+    label: "Activity Status"
   }
 });
 

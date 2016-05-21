@@ -3,14 +3,14 @@
   <div class="alert alert-info">
     <p>
       <span>Saldo do Projeto: </span>
-      <span id="projectBalance" class="text-uppercase">{{projectBalance walletAddress}}</span>
+      <span id="{{walletAddress}}" class="text-uppercase">{{projectBalance walletAddress}}</span>
     </p>
   </div>
 
   <div class="jumbotron">
 
     <img src="{{ image }}" alt="" class="img-responsive" />
-    <h1>{{ project.name }}</h1>
+    <h1>{{ name }}</h1>
     <p>{{ description }}</p>
 
     <hr />
@@ -21,7 +21,7 @@
       <p class="text-right">Seu Saldo:</p>
     </div>
     <div class="col-md-10">
-      <p class="text-left text-uppercase" id="myBalance"></p>
+      <p class="text-left text-uppercase" id="myBalance">{{myBalance balance}} = {{myBalance btc}} = {{myBalance usd}}</p>
     </div>
 
     <div class="clearfix"></div>
@@ -30,7 +30,10 @@
       <p class="text-right">Quantidade: </p>
     </div>
     <div class="col-md-4">
-      <input type="text" class="form-control" id="valueTransaction" />
+      <div class="input-group">
+        <input type="text" class="form-control" id="valueTransaction" />
+        <span class="input-group-addon">ETH</span>
+      </div>
     </div>
     <div class="col-md-6">
       <button id="sendEtherProject" class="btn btn-success">Enviar</button>
@@ -39,10 +42,6 @@
     <div class="clearfix"></div>
 
     <hr />
-
-    <h2>Atividades</h2>
-
-    
 
   </div>
 

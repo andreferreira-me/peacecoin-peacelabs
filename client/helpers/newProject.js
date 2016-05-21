@@ -7,7 +7,7 @@ Template.newProject.events({
       "ownerId": Meteor.userId(),
       "name": $('#name').val(),
       "description": $('#description').val(),
-      "image": "http://lorempixel.com/400/200/sports/", //TODO: Salvar imagem do upload feito pelo usuário // Carregando LoremPixel quando salva projeto
+      "image": "img/loading.gif", //TODO: Salvar imagem do upload feito pelo usuário // Carregando LoremPixel quando salva projeto
       "isActive": true,
       "walletAddress": ""
     };
@@ -20,6 +20,8 @@ Template.newProject.events({
       } else {
 
         Modules.client.uploadToAmazonS3( { event: event, template: template, projectId : response } );
+
+        console.log("resposne: " + response);
 
         Meteor.call("postProject", response, $('#name').val(), $('#description').val(), Meteor.userId());
 

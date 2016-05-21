@@ -1,20 +1,6 @@
 <template name="searchProjects">
   <h3>Contribua com um Projeto</h3>
 
-  {{#each projects}}
-    {{> searchProjectItem}}
-  {{/each}}
+  {{{listProjects}}}
 
-</template>
-
-<template name="searchProjectItem">
-  <div class="col-md-4">
-    <div class="col-md-10" style="border: 1px solid #F8F8F8">
-      <img src="{{image}}" class="img-responsive" />
-      <h3>{{name}}</h3>
-      <p>{{description}}</p>
-      <p>{{activities}}</p>
-      <a id="button" class="btn btn-info" href="{{pathFor 'project' _id=this._id}}">Ver detalhes</a>
-    </div>
-  </div>
 </template>

@@ -2,6 +2,8 @@ const publicRoutes = FlowRouter.group({
   name: 'public'
 });
 
+//TODO: revisar pq páginas que deveriam ser exibidas se logadas, são mostradas ao tentar acessar
+
 publicRoutes.route( '/signup', {
   name: 'signup',
   action() {

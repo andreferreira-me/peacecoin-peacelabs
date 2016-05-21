@@ -6,9 +6,9 @@ Meteor.methods({
 
     this.unblock();
 
-    Meteor.http.get("http://localhost:3002/smartcoin/v1/balance", {
+    Meteor.http.get("http://172.16.1.4:3000/smartcoin/v1/balance", {
       params: {
-        token: "ece5b0c83732411177ed83e895e527fa",
+        token: "29430fce7797f2c90dc9dcdf4dbd67b0",
         walletAddress: walletAddress
       }
     }, function(error, response) {
@@ -17,12 +17,13 @@ Meteor.methods({
       } else {
         if (response.data.statusCode == 200) {
           if (Meteor.isClient) {
-            $('#myBalance').html(response.data.data.balance + " = " + response.data.data.btc + " = " + response.data.data.usd);
-            $('#projectBalance').html(response.data.data.balance + " = " + response.data.data.btc + " = " + response.data.data.usd);
 
-            if (user)
+            $('#' + response.data.data.walletAddress).html(response.data.data.balance + " = " + response.data.data.btc + " = " + response.data.data.usd);
+
+            if (user){
+              $('#myBalance').html(response.data.data.balance + " = " + response.data.data.btc + " = " + response.data.data.usd);
               $('#myWalletAddress').html(response.data.data.walletAddress);
-
+            }
           }
         }
       }
@@ -34,9 +35,9 @@ Meteor.methods({
 
     this.unblock();
 
-    Meteor.http.get("http://localhost:3002/smartcoin/v1/project", {
+    Meteor.http.get("http://172.16.1.4:3000/smartcoin/v1/project", {
       params: {
-        token: "ece5b0c83732411177ed83e895e527fa",
+        token: "29430fce7797f2c90dc9dcdf4dbd67b0",
         userId: userId
       }
     }, function(error, response) {
@@ -59,9 +60,9 @@ Meteor.methods({
     check(name, String);
     this.unblock();
 
-    Meteor.http.post("http://localhost:3002/smartcoin/v1/collaborator", {
+    Meteor.http.post("http://172.16.1.4:3000/smartcoin/v1/collaborator", {
       data: {
-        token: "ece5b0c83732411177ed83e895e527fa",
+        token: "29430fce7797f2c90dc9dcdf4dbd67b0",
         cpf: cpf,
         name: name
       }
@@ -93,9 +94,9 @@ Meteor.methods({
     check(userId, String);
     this.unblock();
 
-    Meteor.http.post("http://localhost:3002/smartcoin/v1/project", {
+    Meteor.http.post("http://172.16.1.4:3000/smartcoin/v1/project", {
       data: {
-        token: "ece5b0c83732411177ed83e895e527fa",
+        token: "29430fce7797f2c90dc9dcdf4dbd67b0",
         projectId: projectId,
         name: name,
         description: description,
@@ -127,22 +128,23 @@ Meteor.methods({
 
     this.unblock();
 
-    Meteor.http.post("http://localhost:3002/smartcoin/v1/transaction", {
-      data: {
-        token: "ece5b0c83732411177ed83e895e527fa",
-        walletAddressFrom: walletAddressFrom,
-        walletAddressTo: walletAddressTo,
-        value: value
-      }
-    }, function(error, response) {
-      if (error) {
-        console.log(error);
-      } else {
-        if (response.data.statusCode == 200) {
-
-          alert("deu certoo");
+    if (Meteor.isServer){
+      Meteor.http.post("http://172.16.1.4:3000/smartcoin/v1/transaction", {
+        data: {
+          token: "29430fce7797f2c90dc9dcdf4dbd67b0",
+          walletAddressFrom: walletAddressFrom,
+          walletAddressTo: walletAddressTo,
+          value: value
         }
-      }
-    });
+      }, function(error, response) {
+        if (error) {
+          console.log(error);
+        } else {
+          if (response.data.statusCode == 200) {
+            console.log("Transação realizada com sucesso");
+          }
+        }
+      });
+    }
   }
 });

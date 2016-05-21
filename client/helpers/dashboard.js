@@ -20,6 +20,8 @@ Template.dashboard.helpers({
 
 Template.registerHelper('projectBalance', ( walletAddress ) => {
   if ( walletAddress ) {
+    console.log("chamous consulta saldo");
     var promise = Meteor.call("getBalance", walletAddress, false);
+    console.log("promise: " + promise);
   }
 });
