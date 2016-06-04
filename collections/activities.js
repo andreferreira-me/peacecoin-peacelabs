@@ -12,6 +12,12 @@ Activities.deny({
   remove: () => false
 });
 
+Activities.Statuses = SEnum([
+  { value: 0, label: "Aberta"},
+  { value: 1, label: "Pendente"},
+  { value: 2, label: "Concluida"},
+]);
+
 ActivitySchema = new SimpleSchema({
   "name": {
     type: String,
@@ -21,9 +27,20 @@ ActivitySchema = new SimpleSchema({
     type: String,
     label: "Activity Value"
   },
+  "projectId": {
+    type: String,
+    label: "Project Id"
+  },
+  "collaboratorId": {
+    type: String,
+    label: "Collaborator Id",
+    optional: true
+  },
   "status": {
     type: String,
-    label: "Activity Status"
+    label: "Activity Status",
+    optional: true,
+    allowedValues: Activities.Statuses.values().concat(Activities.Statuses.keys())
   }
 });
 

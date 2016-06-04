@@ -36,15 +36,89 @@
       </div>
     </div>
     <div class="col-md-6">
-      <button id="sendEtherProject" class="btn btn-success">Enviar</button>
+      <a id="sendEtherProject" class="btn btn-success">
+        <i class="fa fa-paper-plane fa-lg"></i> Enviar
+      </a>
     </div>
 
     <div class="clearfix"></div>
 
     <hr />
 
+    <h2>Atividades</h2>
+
+    {{#with ownerProject}}
+      {{> newActivity}}
+    {{/with}}
+
+    <h3>Atividades do Projeto</h3>
+
+    <table class="table table-hover table-striped table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each projectActivities}}
+          {{> projectActivity}}
+        {{/each}}
+      </tbody>
+    </table>
+
+    // if usuario é dono do projeto -> pode adicionar tarefa -> pode aprovar realização da tarefa (envia eth para o usuário que concluiu) // if usuario não é dono do projeto -> pode selecionar uma tarefa para fazer -> altera status da tarefa para dono do
+    projeto aprovar
+
   </div>
 
   <button id="removeProject" class="btn btn-danger">Excluir Projeto</button>
   {{/with}}
+</template>
+
+<template name="projectActivity">
+  <tr>
+    <td>{{name}}</td>
+    <td>{{value}} ETH</td>
+
+  {{#with ownerProject}}
+    <td class="text-uppercase">{{status}}</td>
+  {{/with}}
+
+  {{#with otherUser}}
+    <td class="text-uppercase">{{status}}</td>
+  {{/with}}
+
+  </tr>
+</template>
+
+<template name="newActivity">
+  <h3>Nova Tarefa</h3>
+
+  <div class="col-md-1">
+    <p class="text-right">Nome: </p>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group">
+      <input type="text" size="100" class="form-control" id="inputNameActivity" />
+    </div>
+  </div>
+  <div class="col-md-1">
+    <p class="text-right">Valor: </p>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group">
+      <input type="text" size="100" class="form-control" id="inputValueActivity" />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <a id="btnNewActivity" class="btn btn-success" href="#">
+      <i class="fa fa-plus fa-lg"></i> Add Atividade
+    </a>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <hr />
 </template>
