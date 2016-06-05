@@ -22,34 +22,79 @@ Template.project.helpers({
   projectActivities: function () {
     var projectId = FlowRouter.getParam("_id");
 
-    console.log(projectId);
-
     return Activities.find({ "projectId": projectId});
   }
 });
 
 Template.projectActivity.helpers({
-
   ownerProject: function () {
     var project = Projects.findOne({ "_id" : FlowRouter.getParam("_id") });
 
     if (project.ownerId == Meteor.userId()) {
-      console.log("ownerProject");
       return project;
     }else{
-      return null;
+      return false;
     }
   },
   otherUser: function () {
     var project = Projects.findOne({ "_id" : FlowRouter.getParam("_id") });
 
     if (project.ownerId != Meteor.userId()) {
-      console.log("otherUser");
-      return project;
+      return true;
     }else{
-      return null;
+      return false;
     }
   }
+});
+
+Template.projectActivity.events({
+  'click .btnActivityOpened'(event) {
+    // Prevent default browser form submit
+    event.preventDefault();
+
+    var activityId = $(event.target).closest('tr').data('id');
+
+    var activity = Activities.findOne({ "_id" : activityId });
+
+    activity.status = "Pendente";
+
+    Meteor.call( "updateActivity", activity, function( error, response ) {
+      if ( error ) {
+        Bert.alert( error.reason, "danger" );
+      } else {
+        Bert.alert( "Status da Atividade: Pendente Aprovação", "success" );
+      }
+    });
+  },
+  'click .btnActivityFinished'(event) {
+    // Prevent default browser form submit
+    event.preventDefault();
+
+    var activityId = $(event.target).closest('tr').data('id');
+
+    var activity = Activities.findOne({ "_id" : activityId });
+
+    activity.status = "Concluída";
+
+    Meteor.call( "updateActivity", activity, function( error, response ) {
+      if ( error ) {
+        Bert.alert( error.reason, "danger" );
+      } else {
+
+        var user = Meteor.users.findOne({ "_id" : Meteor.userId() });
+
+        var project = Projects.findOne({ "_id" : FlowRouter.getParam("_id") });
+
+        Meteor.call( "postTransaction", project.walletAddress, user.profile.walletAddress, parseFloat(activity.value), function( error, response ) {
+          if ( error ) {
+            Bert.alert( error.reason, "danger" );
+          } else {
+            Bert.alert( "Atividade aprovada!! O bônus já foi enviado para o colaborador.", "success" );
+          }
+        });
+      }
+    });
+  },
 });
 
 Template.project.events({
@@ -126,7 +171,6 @@ Template.project.events({
       } else {
 
         Bert.alert( "Atividade inserida com sucesso!", "success" );
-        FlowRouter.go('/painel');
       }
     });
   }
@@ -137,4 +181,54 @@ Template.registerHelper('projectBalance', ( walletAddress ) => {
     console.log(walletAddress);
     var promise = Meteor.callPromise("getBalance", walletAddress, false);
   }
+});
+
+Template.registerHelper('statusVerify', ( activityId ) => {
+  var activity = Activities.findOne({ "_id" : activityId });
+  var project;
+  var HTML = "";
+
+  if (activity){
+      project = Projects.findOne({ "_id" : activity.projectId});
+  }
+
+  if (project){
+    if (project.ownerId == Meteor.userId() && activity.status == "Aberta") {
+
+      HTML = "<a class='btn btn-xs btn-success' disabled>"+
+                  "<i class='fa fa-suitcase fa-lg'></i> Atividade Aberta"+
+                  "</a>";
+    }
+
+    if (project.ownerId == Meteor.userId() && activity.status == "Pendente") {
+
+      HTML = "<a class='btn btn-xs btn-success btnActivityFinished'>"+
+                  "<i class='fa fa-check fa-lg'></i> Aprovar Atividade"+
+                  "</a>";
+    }
+
+    if (activity.status == "Concluída") {
+
+      HTML = "<a class='btn btn-xs btn-default' disabled>"+
+                  "<i class='fa fa-flag-checkered fa-lg'></i> Atividade concluída"+
+                  "</a>";
+    }
+
+    if (project.ownerId != Meteor.userId() && activity.status == "Aberta") {
+
+      HTML = "<a id='" + activityId + "' class='btn btn-xs btn-success btnActivityOpened'>"+
+                  "<i class='fa fa-suitcase fa-lg'></i> Realizar Atividade"+
+                  "</a>";
+    }
+
+    if (project.ownerId != Meteor.userId() && activity.status == "Pendente") {
+
+      HTML = "<a class='btn btn-xs btn-warning' disabled>"+
+                  "<i class='fa fa-clock-o fa-lg'></i> Pendente Aprovação"+
+                  "</a>";
+    }
+  }
+
+  return HTML;
+
 });

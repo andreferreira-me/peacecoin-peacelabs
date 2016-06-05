@@ -78,17 +78,13 @@
 </template>
 
 <template name="projectActivity">
-  <tr>
+  <tr data-name="{{name}}" data-id="{{_id}}">
     <td>{{name}}</td>
     <td>{{value}} ETH</td>
 
-  {{#with ownerProject}}
-    <td class="text-uppercase">{{status}}</td>
-  {{/with}}
-
-  {{#with otherUser}}
-    <td class="text-uppercase">{{status}}</td>
-  {{/with}}
+    <td>
+      {{{statusVerify _id}}}
+    </td>
 
   </tr>
 </template>

@@ -12,12 +12,6 @@ Activities.deny({
   remove: () => false
 });
 
-Activities.Statuses = SEnum([
-  { value: 0, label: "Aberta"},
-  { value: 1, label: "Pendente"},
-  { value: 2, label: "Concluida"},
-]);
-
 ActivitySchema = new SimpleSchema({
   "name": {
     type: String,
@@ -39,8 +33,7 @@ ActivitySchema = new SimpleSchema({
   "status": {
     type: String,
     label: "Activity Status",
-    optional: true,
-    allowedValues: Activities.Statuses.values().concat(Activities.Statuses.keys())
+    optional: true
   }
 });
 

@@ -6,7 +6,7 @@ Meteor.methods({
       "projectId": activity.projectId,
       "name": activity.name,
       "value": activity.value,
-      "status": "aberta"
+      "status": "Aberta"
     };
 
     try {
