@@ -195,35 +195,35 @@ Template.registerHelper('statusVerify', ( activityId ) => {
   if (project){
     if (project.ownerId == Meteor.userId() && activity.status == "Aberta") {
 
-      HTML = "<a class='btn btn-xs btn-success' disabled>"+
+      HTML = "<a class='btn btn-sm btn-success' disabled>"+
                   "<i class='fa fa-suitcase fa-lg'></i> Atividade Aberta"+
                   "</a>";
     }
 
     if (project.ownerId == Meteor.userId() && activity.status == "Pendente") {
 
-      HTML = "<a class='btn btn-xs btn-success btnActivityFinished'>"+
+      HTML = "<a class='btn btn-sm btn-success btnActivityFinished'>"+
                   "<i class='fa fa-check fa-lg'></i> Aprovar Atividade"+
                   "</a>";
     }
 
     if (activity.status == "Concluída") {
 
-      HTML = "<a class='btn btn-xs btn-default' disabled>"+
+      HTML = "<a class='btn btn-sm btn-default' disabled>"+
                   "<i class='fa fa-flag-checkered fa-lg'></i> Atividade concluída"+
                   "</a>";
     }
 
     if (project.ownerId != Meteor.userId() && activity.status == "Aberta") {
 
-      HTML = "<a id='" + activityId + "' class='btn btn-xs btn-success btnActivityOpened'>"+
+      HTML = "<a id='" + activityId + "' class='btn btn-sm btn-success btnActivityOpened'>"+
                   "<i class='fa fa-suitcase fa-lg'></i> Realizar Atividade"+
                   "</a>";
     }
 
     if (project.ownerId != Meteor.userId() && activity.status == "Pendente") {
 
-      HTML = "<a class='btn btn-xs btn-warning' disabled>"+
+      HTML = "<a class='btn btn-sm btn-warning' disabled>"+
                   "<i class='fa fa-clock-o fa-lg'></i> Pendente Aprovação"+
                   "</a>";
     }
