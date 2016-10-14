@@ -1,17 +1,9 @@
-# The Meteor Chef - Base
-A starting point for Meteor apps.
+# Setting up and running
 
-<table>
-  <tbody>
-    <tr>
-      <th>Base Version</th>
-      <td>v3.4.0</td>
-    </tr>
-    <tr>
-      <th>Meteor Version</th>
-      <td>v1.2.1</td>
-    </tr>
-  </tbody>
-</table>
+1. Change the two constants "AWSAccessKeyId" and "AWSSecretAccessKey" in settings-development.json file with your Amazon Access Key ID and Secret Access Key.
 
-[Read the Documentation](http://themeteorchef.com/base)
+2. Run your Meteor app
+
+'''
+meteor --settings settings-development.json
+'''
