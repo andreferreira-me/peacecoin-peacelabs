@@ -6,4 +6,4 @@
 
 ```
 meteor --settings settings-development.json
-´´´
+```
