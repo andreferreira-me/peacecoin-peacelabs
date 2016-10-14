@@ -4,6 +4,6 @@
 
 2. Run your Meteor app
 
-'''
+```
 meteor --settings settings-development.json
-'''
+´´´
